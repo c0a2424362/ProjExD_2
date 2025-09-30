@@ -16,14 +16,24 @@ def main():
     kk_rct.center = 300, 200
     clock = pg.time.Clock()
     tmr = 0
+    bb_img = pg.Surface((20,20))
+    bb_img.set_colorkey((0, 0, 0))
+    pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
         screen.blit(bg_img, [0, 0]) 
 
+
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
+        DELTA = {pg.K_UP:(0, -5), pg.K_DOWN:(0, +5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(+5, 0)}
+        for key,mv in DELTA.items():
+            if key_lst[key]:
+                sum_mv[0] += mv[0] #横方向
+                sum_mv[1] += mv[1] #縦方向
+        """   
         if key_lst[pg.K_UP]:
             sum_mv[1] -= 5
         if key_lst[pg.K_DOWN]:
@@ -31,7 +41,7 @@ def main():
         if key_lst[pg.K_LEFT]:
             sum_mv[0] -= 5
         if key_lst[pg.K_RIGHT]:
-            sum_mv[0] += 5
+            sum_mv[0] += 5"""
         kk_rct.move_ip(sum_mv)
         screen.blit(kk_img, kk_rct)
         pg.display.update()

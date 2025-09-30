@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 import pygame as pg
 
 
@@ -49,7 +50,37 @@ def main():
                 return
         screen.blit(bg_img, [0, 0])
         if kk_rct.colliderect(bb_rct):
-            return  # geme over
+            gemeover()  # geme over
+
+        def gemeover() -> None:
+            go_sfc = pg.Surface((WIDTH, HEIGHT))  # ゲームオーバー用の空Surface
+            go_sfc.set_alpha(200)  # 透明度設定
+            go_sfc.fill((0, 0, 0))  # 黒で塗りつぶし
+            screen.blit(go_sfc, [0, 0])  # 画面に貼り付け   
+            font = pg.font.Font(None, 150)  # フォントオブジェクトを作成
+            txt = font.render("GAME OVER", True, (255, 255, 255))  # 白のGAME OVERテキスト
+            screen.blit(txt, [300, 200])  # テキストを画面に貼り付け[位置]
+            go_img = pg.image.load("fig/8.png")  # ゲームオーバー画像の読み込み
+            go_rct = go_img.get_rect() # ゲームオーバー画像のRect
+            go_rct.center = 300, 400  # ゲームオーバー画像の位置
+            screen.blit(go_img, go_rct)  # ゲームオーバー画像の貼り付け
+            pg.display.update()
+            time.sleep(5)  # 5秒間表示
+            pg.quit()
+        #def gemeover(screen: pg.Sruface) -> None:
+            #go_img = pg.Surface((WIDTH, HEIGHT))  # ゲームオーバー用の空Surface
+            #go_img.get_alpha()  # 透明度設定
+            #font = pg.font.Font(None, 150)  # フォントオブジェクトを作成
+            #txt = font.render("geme over", True, (255, 255, 255))  # 白のgeme overテキスト
+            #screen.bilt(txt, [300, 200])  # テキストを画面に貼り付け[位置]
+            #go_img = pg.image.load("fig/6.png")  # ゲームオーバー画像の読み込み
+            #go_rct = go_img.get_rect()  # ゲームオーバー画像のRect
+            #screen.blit(go_img,go_rct)  # ゲームオーバー画像の貼り付け
+            #pg.display.update()
+            #time.sleep(5)  # 5秒間表示
+            return
+        
+
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
